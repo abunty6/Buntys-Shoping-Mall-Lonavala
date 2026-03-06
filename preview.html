@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buntys Shopping Mall</title>
+
+<style>
+
+body{
+font-family:Arial;
+margin:0;
+background:#f3f3f3;
+}
+
+header{
+background:#131921;
+color:white;
+padding:20px;
+text-align:center;
+}
+
+.search{
+text-align:center;
+padding:20px;
+background:white;
+}
+
+.search input{
+width:60%;
+padding:10px;
+font-size:16px;
+}
+
+.categories{
+text-align:center;
+padding:10px;
+background:#fff;
+}
+
+.categories button{
+margin:5px;
+padding:8px 15px;
+border:none;
+background:#ff9900;
+color:white;
+cursor:pointer;
+}
+
+.products{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+padding:20px;
+}
+
+.card{
+background:white;
+padding:15px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+text-align:center;
+}
+
+.card img{
+width:100%;
+border-radius:8px;
+}
+
+.price{
+color:green;
+font-weight:bold;
+}
+
+.btn{
+background:#ff9900;
+color:white;
+padding:10px 15px;
+text-decoration:none;
+display:inline-block;
+margin-top:10px;
+border-radius:5px;
+}
+
+.ads{
+text-align:center;
+padding:20px;
+background:#fff;
+margin:20px;
+}
+
+footer{
+background:#131921;
+color:white;
+text-align:center;
+padding:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+<h1>Buntys Shopping Mall</h1>
+<p>Best Online Affiliate Deals</p>
+</header>
+
+<div class="search">
+<input type="text" id="search" placeholder="Search products..." onkeyup="searchProduct()">
+</div>
+
+<div class="categories">
+
+<button onclick="filterCategory('all')">All</button>
+<button onclick="filterCategory('electronics')">Electronics</button>
+<button onclick="filterCategory('fashion')">Fashion</button>
+<button onclick="filterCategory('home')">Home</button>
+
+</div>
+
+<div class="ads">
+
+<!-- Adsense Ad Space -->
+<p>Google Adsense Ad Here</p>
+
+</div>
+
+<div class="products" id="productList"></div>
+
+<footer>
+<p>© 2026 Buntys Shopping Mall</p>
+</footer>
+
+<script>
+
+let products=[
+
+{
+name:"Wireless Earbuds",
+price:"₹999",
+category:"electronics",
+image:"https://via.placeholder.com/200",
+link:"AFFILIATE_LINK",
+clicks:0
+},
+
+{
+name:"Smart Watch",
+price:"₹1999",
+category:"electronics",
+image:"https://via.placeholder.com/200",
+link:"AFFILIATE_LINK",
+clicks:0
+},
+
+{
+name:"Men T Shirt",
+price:"₹499",
+category:"fashion",
+image:"https://via.placeholder.com/200",
+link:"AFFILIATE_LINK",
+clicks:0
+},
+
+{
+name:"Kitchen Mixer",
+price:"₹2499",
+category:"home",
+image:"https://via.placeholder.com/200",
+link:"AFFILIATE_LINK",
+clicks:0
+}
+
+]
+
+function displayProducts(list){
+
+let container=document.getElementById("productList")
+
+container.innerHTML=""
+
+list.forEach((p,i)=>{
+
+container.innerHTML+=`
+
+<div class="card">
+
+<img src="${p.image}">
+
+<h3>${p.name}</h3>
+
+<p class="price">${p.price}</p>
+
+<a class="btn" href="${p.link}" target="_blank" onclick="trackClick(${i})">Buy Now</a>
+
+</div>
+
+`
+
+})
+
+}
+
+displayProducts(products)
+
+function searchProduct(){
+
+let search=document.getElementById("search").value.toLowerCase()
+
+let filtered=products.filter(p=>p.name.toLowerCase().includes(search))
+
+displayProducts(filtered)
+
+}
+
+function filterCategory(cat){
+
+if(cat=="all"){
+displayProducts(products)
+}
+else{
+
+let filtered=products.filter(p=>p.category==cat)
+
+displayProducts(filtered)
+
+}
+
+}
+
+function trackClick(i){
+
+products[i].clicks++
+
+console.log("Clicks:",products[i].clicks)
+
+}
+
+</script>
+
+</body>
+</html>
